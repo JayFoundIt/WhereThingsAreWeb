@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Jay: Where Things Are</title>
-<meta name="description" content="Jay remembers where your things are. Say it once, find it later. Coming soon.">
+<title>Jay and Wren</title>
+<meta name="description" content="Two small apps for iPhone and Mac. Jay remembers where your things are. Wren finds great radio, natively on your Mac.">
 <meta name="theme-color" content="#EAF2FF" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0B1730" media="(prefers-color-scheme: dark)">
 <link rel="canonical" href="https://wherethingsare.at/">
@@ -13,147 +13,188 @@
 <link rel="manifest" href="/site.webmanifest">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://wherethingsare.at/">
-<meta property="og:title" content="Jay: Where Things Are">
-<meta property="og:description" content="Say it once. Find it later.">
+<meta property="og:title" content="Jay and Wren">
+<meta property="og:description" content="Jay remembers where your things are. Wren finds great radio, natively on your Mac.">
 <meta property="og:image" content="https://wherethingsare.at/icon-512.png">
 <meta name="twitter:card" content="summary">
 <style>
   :root {
     color-scheme: light dark;
     --jay: #1C6EE8;
-    --jay-deep: #0F4AB8;
-    --acorn: #B4682B;
-    --ink: #0E1B33;
-    --soft: #4A5A78;
-    --sky-top: #D6E7FF;
-    --sky-mid: #EAF2FF;
-    --sky-low: #FBF4EA;
-    --pill: rgba(255, 255, 255, 0.72);
-    --pill-edge: rgba(28, 110, 232, 0.16);
-    --glow: rgba(28, 110, 232, 0.30);
+    --jay-ink: #0E1B33;
+    --jay-soft: #4A5A78;
+    --jay-top: #D6E7FF;
+    --jay-low: #EAF2FF;
+    --jay-glow: rgba(28, 110, 232, 0.30);
+    --wren: #2C8A3C;
+    --wren-ink: #12260F;
+    --wren-soft: #4D6A47;
+    --wren-top: #D2EEC4;
+    --wren-low: #EDF8E6;
+    --wren-glow: rgba(44, 138, 60, 0.30);
+    --foot: #FBFAF7;
+    --foot-ink: #5B5E66;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --jay: #6EA8FF;
-      --jay-deep: #9CC3FF;
-      --acorn: #E0A062;
-      --ink: #F2F6FF;
-      --soft: #A9B8D6;
-      --sky-top: #0B1730;
-      --sky-mid: #0F2147;
-      --sky-low: #1B1A22;
-      --pill: rgba(255, 255, 255, 0.08);
-      --pill-edge: rgba(255, 255, 255, 0.14);
-      --glow: rgba(60, 130, 255, 0.35);
+      --jay-ink: #F2F6FF;
+      --jay-soft: #A9B8D6;
+      --jay-top: #0B1730;
+      --jay-low: #0F2147;
+      --jay-glow: rgba(60, 130, 255, 0.35);
+      --wren: #7DD38B;
+      --wren-ink: #F0FAEE;
+      --wren-soft: #A7C3A1;
+      --wren-top: #0C1D10;
+      --wren-low: #12301A;
+      --wren-glow: rgba(110, 210, 120, 0.30);
+      --foot: #141414;
+      --foot-ink: #A3A6AD;
     }
   }
   * { box-sizing: border-box; }
-  html, body { height: 100%; margin: 0; }
+  html, body { margin: 0; min-height: 100%; }
   body {
-    font-family: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-    color: var(--ink);
-    background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-low) 100%) fixed;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-  }
-  /* Two soft clouds of colour behind everything. */
-  body::before, body::after {
-    content: "";
-    position: fixed;
-    width: 60vmax; height: 60vmax;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.55;
-    pointer-events: none;
-    z-index: 0;
-  }
-  body::before { background: radial-gradient(circle, rgba(28, 110, 232, 0.35), transparent 65%); top: -25vmax; right: -20vmax; }
-  body::after { background: radial-gradient(circle, rgba(224, 150, 80, 0.30), transparent 65%); bottom: -30vmax; left: -22vmax; }
-
-  main {
-    position: relative;
-    z-index: 1;
-    min-height: 100%;
     min-height: 100dvh;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: max(32px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
-    gap: 0;
+    font-family: ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background: var(--foot);
   }
+  .split {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 780px) {
+    .split { grid-template-columns: 1fr; }
+    .split section { padding-top: max(44px, env(safe-area-inset-top)); padding-bottom: 48px; }
+  }
+  section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    /* From the top, so the birds sit level even when one title wraps. */
+    padding: max(clamp(48px, 12vh, 132px), env(safe-area-inset-top)) 28px 56px;
+  }
+  .jay { --accent: var(--jay); --ink: var(--jay-ink); --soft: var(--jay-soft); --glow: var(--jay-glow);
+         background: linear-gradient(180deg, var(--jay-top), var(--jay-low)); color: var(--jay-ink); }
+  .wren { --accent: var(--wren); --ink: var(--wren-ink); --soft: var(--wren-soft); --glow: var(--wren-glow);
+          background: linear-gradient(180deg, var(--wren-top), var(--wren-low)); color: var(--wren-ink); }
   .icon {
-    width: clamp(132px, 34vw, 184px);
+    width: clamp(120px, 26vw, 176px);
     height: auto;
     aspect-ratio: 1;
     border-radius: 22.5%;
-    box-shadow: 0 24px 60px -18px var(--glow), 0 6px 18px -8px rgba(14, 27, 51, 0.35);
+    box-shadow: 0 24px 60px -18px var(--glow), 0 6px 18px -8px rgba(0, 0, 0, 0.35);
     animation: bob 5s ease-in-out infinite;
   }
+  .wren .icon { animation-delay: -2.5s; }
   @keyframes bob {
     0%, 100% { transform: translateY(0) rotate(-1.5deg); }
     50% { transform: translateY(-10px) rotate(1.5deg); }
   }
   @media (prefers-reduced-motion: reduce) { .icon { animation: none; } }
-
   .name {
-    margin: 30px 0 0;
-    font-size: 1.05rem;
+    margin: 28px 0 0;
+    font-size: 1rem;
     font-weight: 700;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--jay);
+    color: var(--accent);
   }
   h1 {
-    margin: 8px 0 0;
-    font-size: clamp(2.4rem, 9vw, 4.2rem);
+    margin: 6px 0 0;
+    font-size: clamp(2.1rem, 5vw, 3.4rem);
     font-weight: 800;
-    line-height: 1.04;
+    line-height: 1.05;
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
   .slogan {
-    margin: 18px 0 0;
-    font-size: clamp(1.15rem, 3.6vw, 1.45rem);
-    font-weight: 500;
+    margin: 14px 0 0;
+    font-size: clamp(1.1rem, 2.4vw, 1.35rem);
+    font-weight: 600;
     color: var(--soft);
     text-wrap: balance;
   }
-  .soon {
-    margin-top: 34px;
+  .about {
+    margin: 16px 0 0;
+    max-width: 30em;
+    font-size: 1.02rem;
+    line-height: 1.5;
+    color: var(--soft);
+    text-wrap: pretty;
+  }
+  .button {
+    margin-top: 28px;
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    padding: 10px 18px 10px 14px;
+    padding: 13px 24px;
     border-radius: 999px;
-    background: var(--pill);
-    border: 1px solid var(--pill-edge);
-    -webkit-backdrop-filter: blur(12px);
-    backdrop-filter: blur(12px);
-    font-size: 0.98rem;
-    font-weight: 600;
-    color: var(--jay-deep);
+    background: var(--accent);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 10px 24px -12px var(--glow);
+    transition: transform 0.15s ease;
   }
-  .soon::before {
-    content: "";
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--acorn);
-    box-shadow: 0 0 0 4px color-mix(in srgb, var(--acorn) 22%, transparent);
+  @media (prefers-color-scheme: dark) { .button { color: #0B0F14; } }
+  .button:hover { transform: translateY(-2px); }
+  .button:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+  .button svg { width: 20px; height: 20px; }
+  .note { margin: 12px 0 0; font-size: 0.9rem; color: var(--soft); }
+  .fine { margin: 6px 0 0; font-size: 0.8rem; color: var(--soft); opacity: 0.85; }
+  footer {
+    padding: 16px 24px max(16px, env(safe-area-inset-bottom));
+    text-align: center;
+    font-size: 0.92rem;
+    color: var(--foot-ink);
   }
+  footer a { color: inherit; text-underline-offset: 3px; }
+  footer span { margin: 0 8px; }
 </style>
 </head>
 <body>
-<main>
-  <img class="icon" src="/icon-512.png" width="512" height="512" alt="Jay, a blue jay holding an acorn">
-  <p class="name">Jay</p>
-  <h1>Where Things Are</h1>
-  <p class="slogan" data-de="Einmal sagen. Später finden.">Say it once. Find it later.</p>
-  <p class="soon" data-de="Bald da">Coming soon</p>
+<main class="split">
+  <section class="jay">
+    <img class="icon" src="/icon-512.png" width="512" height="512" alt="Jay, a blue jay holding an acorn">
+    <p class="name">Jay</p>
+    <h1>Where Things Are</h1>
+    <p class="slogan" data-de="Einmal sagen. Später finden.">Say it once. Find it later.</p>
+    <p class="about" data-de="Geh durch die Wohnung und sag, was wo liegt. Jay merkt es sich und sagt es dir später, in der App oder mit Siri. Auch Spotlight findet es, und über iCloud ist alles auf iPhone und Mac.">Walk through your home and say what goes where. Jay remembers, and tells you later, in the app or with Siri. Spotlight finds it too, and iCloud keeps it all on iPhone and Mac.</p>
+    <a class="button" href="https://testflight.apple.com/join/M3QuCw3m">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12h20M13 5l7 7-7 7"/></svg>
+      <span data-de="Beta auf TestFlight testen">Try the beta on TestFlight</span>
+    </a>
+    <p class="note" data-de="Für iPhone und Mac">For iPhone and Mac</p>
+  </section>
+
+  <section class="wren">
+    <img class="icon" src="/wren-512.png" width="512" height="512" alt="Wren, a singing wren on a branch">
+    <p class="name">Wren</p>
+    <h1 data-de="Radio entdecken">Discover Great Radio</h1>
+    <p class="slogan" data-de="Dein Mac singt mit.">Your Mac sings along.</p>
+    <p class="about" data-de="KEXP, FM4 und Bandcamp Radio in einer App, mit jedem Titel jeder Sendung. Finde Sendungen nach Genre, Stimmung oder in deinen eigenen Worten, mit Apple Intelligence. Verlauf und Favoriten über iCloud, AirPlay und Netzwerk-Lautsprecher, Medientasten und Menüleiste.">KEXP, FM4 and Bandcamp Radio in one app, with every track of every show. Find shows by genre, by mood, or in your own words with Apple Intelligence. History and likes in iCloud, AirPlay and network speakers, media keys and the menu bar.</p>
+    <a class="button" href="/downloads/Wren-1.0.zip" download>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v13M6 11l6 6 6-6M4 21h16"/></svg>
+      <span data-de="Für den Mac laden">Download for Mac</span>
+    </a>
+    <p class="note" data-de="Version 1.0 · ab macOS 26 · 4 MB">Version 1.0 · macOS 26 or later · 4 MB</p>
+    <p class="fine" data-de="Nicht verbunden mit Bandcamp, KEXP oder ORF/FM4.">Not affiliated with Bandcamp, KEXP or ORF/FM4.</p>
+  </section>
 </main>
+<footer>
+  <a href="/privacy.html" data-de="Datenschutz">Privacy</a><span aria-hidden="true">·</span><a href="/imprint.html" data-de="Impressum">Imprint</a>
+</footer>
 <script>
-  // German visitors get the German lines; the name stays as it is.
+  // German visitors get the German lines; the names stay as they are.
   if ((navigator.language || "").toLowerCase().startsWith("de")) {
     document.documentElement.lang = "de";
     document.querySelectorAll("[data-de]").forEach(function (el) { el.textContent = el.dataset.de; });

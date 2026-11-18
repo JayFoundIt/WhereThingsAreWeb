@@ -1,0 +1,45 @@
+:root {
+  color-scheme: light dark;
+  --ink: #16191F;
+  --soft: #5B5E66;
+  --bg: #FBFAF7;
+  --line: rgba(0, 0, 0, 0.1);
+  --jay: #1C6EE8;
+  --wren: #2C8A3C;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --ink: #EDEEF0; --soft: #A3A6AD; --bg: #141414; --line: rgba(255, 255, 255, 0.12); --jay: #6EA8FF; --wren: #7DD38B; }
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font: 1rem/1.6 ui-rounded, "SF Pro Rounded", "Nunito", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* A thin blue and green band, the home page's two halves. */
+body::before {
+  content: "";
+  display: block;
+  height: 6px;
+  background: linear-gradient(90deg, var(--jay) 50%, var(--wren) 50%);
+}
+main { max-width: 42rem; margin: 0 auto; padding: 28px 22px 56px; }
+nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; font-size: 0.95rem; }
+nav a, main a { color: inherit; text-underline-offset: 3px; }
+.birds { display: inline-flex; align-items: center; gap: 8px; text-decoration: none; font-weight: 700; }
+.birds img { width: 28px; height: 28px; border-radius: 22.5%; }
+h1 { margin: 36px 0 6px; font-size: 2rem; line-height: 1.15; letter-spacing: -0.01em; }
+h2 { margin: 32px 0 6px; font-size: 1.2rem; }
+h3 { margin: 20px 0 4px; font-size: 1.02rem; }
+p, ul { margin: 6px 0 10px; }
+ul { padding-left: 1.2em; }
+li { margin: 4px 0; }
+.lead { font-size: 1.1rem; color: var(--soft); }
+.soft, .updated { color: var(--soft); }
+.updated { margin-top: 36px; font-size: 0.9rem; border-top: 1px solid var(--line); padding-top: 14px; }
+address { font-style: normal; }
+/* Both languages are on the page; the script shows one (without it, both show). */
+.js [lang="de"]:not(html), .js.de [lang="en"]:not(html) { display: none; }
+.js.de [lang="de"]:not(html) { display: block; }

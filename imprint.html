@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Imprint · Jay and Wren</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="stylesheet" href="/legal.css">
+<script>
+  // Shows one language: German for German browsers, or whichever was picked.
+  document.documentElement.classList.add("js");
+  if (location.hash === "#de" || (location.hash !== "#en" && (navigator.language || "").toLowerCase().startsWith("de"))) {
+    document.documentElement.classList.add("de");
+  }
+</script>
+</head>
+<body>
+<main>
+  <nav>
+    <a class="birds" href="/"><img src="/icon-512.png" alt=""><img src="/wren-512.png" alt="">Jay and Wren</a>
+    <span><a href="#en" onclick="document.documentElement.classList.remove('de')">English</a> · <a href="#de" onclick="document.documentElement.classList.add('de')">Deutsch</a></span>
+  </nav>
+
+  <article lang="en">
+    <h1>Imprint</h1>
+    <p class="soft">Information according to § 5 DDG (German Digital Services Act) for this website and the apps Jay and Wren.</p>
+    <address>
+      Julian Eberius<br>
+      Zur Schafstränke 15<br>
+      01705 Freital<br>
+      Germany
+    </address>
+    <h2>Contact</h2>
+    <p>Email: <a href="mailto:mail@stashsnap.de">mail@stashsnap.de</a></p>
+    <h2>Consumer dispute resolution</h2>
+    <p>I am neither obliged nor willing to take part in dispute resolution proceedings before a consumer arbitration board.</p>
+    <p><a href="/privacy.html#en">Privacy</a></p>
+  </article>
+
+  <article lang="de">
+    <h1>Impressum</h1>
+    <p class="soft">Angaben gemäß § 5 DDG für diese Website und die Apps Jay und Wren.</p>
+    <address>
+      Julian Eberius<br>
+      Zur Schafstränke 15<br>
+      01705 Freital<br>
+      Deutschland
+    </address>
+    <h2>Kontakt</h2>
+    <p>E-Mail: <a href="mailto:mail@stashsnap.de">mail@stashsnap.de</a></p>
+    <h2>Verbraucherstreitbeilegung</h2>
+    <p>Ich bin nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+    <p><a href="/privacy.html#de">Datenschutz</a></p>
+  </article>
+</main>
+</body>
+</html>
